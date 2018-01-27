@@ -10,15 +10,16 @@ class Prototype extends Phaser.Game {
 			create: () => this.onCreate(),
 			update: () => this.onUpdate()
 		}, true);
+		this.sprite = null;
 	}
 	onPreload () {
-		console.log("preload");
+		game.load.atlasXML('platformer_complete', 'assets/platformer_complete.png', 'assets/platformer_complete.xml');
 	}
 	onCreate () {
-		console.log("create");		
+		this.sprite = game.add.sprite(64, 64, 'platformer_complete', 'alienBlue_walk1.png');
 	}
 	onUpdate () {
-		console.log("update");
+		this.sprite.angle += 0.5;
 	}
 }
 
