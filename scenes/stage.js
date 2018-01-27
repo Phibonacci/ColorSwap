@@ -13,5 +13,8 @@ class Stage extends Phaser.State {
 		this.map.update(delta);
 		this.player1.update(delta);
 		this.previousFrameTime = game.time.now;
+
+		this.map.collideWith(this.player1.sprite);
+		this.map.collideWith(this.player2.sprite);
 	}
 }

@@ -28,6 +28,11 @@ class JumpChunk {
 					break;
 			}
 		}
+		for (let i = 0; i < this.ground.length; ++i) {
+			game.physics.arcade.enable(this.ground[i]);
+			this.ground[i].body.immovable = true;
+			this.ground[i].body.moves = false;
+		}
 	}
 
 	update() {
@@ -44,6 +49,12 @@ class JumpChunk {
 		this.isDestroyed = true;
 		for (let i = 0; i < this.ground.length; ++i) {
 			this.ground[i].destroy();
+		}
+	}
+
+	collideWith(sprite) {
+		for (let i = 0; i < this.ground.length; ++i) {
+			game.physics.arcade.collide(sprite, this.ground[i], null, null, this);
 		}
 	}
 }

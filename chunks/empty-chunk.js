@@ -12,6 +12,9 @@ class EmptyChunk {
 		for (let i = 0; i < 8; ++i) {
 			this.ground[i] = game.add.sprite(this.deltaX + i * 128, 128 * 4, 'platformer', 'grassMid.png');
 		}
+		for (let i = 0; i < this.ground.length; ++i) {
+			this.physics.arcade.enable(this.ground[i]);
+		}
 	}
 
 	update() {

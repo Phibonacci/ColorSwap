@@ -24,6 +24,12 @@ class Map {
 			this.buildNextChunk();
 		}
 	}
+	
+	collideWith(sprite) {
+		for (let i = 0; i < this.chunks.length; ++i) {
+			this.chunks[i].collideWith(sprite);
+		}
+	}
 
 	buildNextChunk() {
 		let next = new JumpChunk(this.currentChunk);
