@@ -9,7 +9,7 @@ class Map {
 	}
 
 	update(deltaTime) {
-		game.camera.x += deltaTime * 100.0;
+		game.camera.x += deltaTime * 250.0;
 		let hasDestroyedChunk = false;
 		for (let i = 0; i < this.chunks.length; ++i) {
 			this.chunks[i].update();
@@ -24,7 +24,7 @@ class Map {
 			this.buildNextChunk();
 		}
 	}
-	
+
 	collideWith(sprite) {
 		for (let i = 0; i < this.chunks.length; ++i) {
 			this.chunks[i].collideWith(sprite);
@@ -32,9 +32,17 @@ class Map {
 	}
 
 	buildNextChunk() {
-		let next = new JumpChunk(this.currentChunk);
+		let next = this.createRandomChunk();
 		next.build();
 		this.chunks.push(next);
 		this.currentChunk++;
+	}
+
+	createRandomChunk() {
+		if (Math.random() < 0.5) {
+			return new JumpChunk(this.currentChunk);
+		} else {
+			return new EmptyChunk(this.currentChunk)
+		}
 	}
 }

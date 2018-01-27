@@ -98,3 +98,10 @@ class Player {
 		// frames.Add(new Frame(0,  "alienGreen_walk1.png");
 	}
 }
+
+Player.Colors = {
+	green: 0x6fc4a9,
+	blue: 0x8db5e7,
+	red: 0xf19cb7,
+	yellow: 0xffcc00
+}

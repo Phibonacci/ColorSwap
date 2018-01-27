@@ -6,6 +6,7 @@ class JumpChunk {
 		this.deltaX = game.world.width * chunkId;
 		this.ground = [];
 		this.isDestroyed = false;
+		this.mode = Math.floor(Math.random() * 3);
 	}
 
 	build() {
@@ -19,6 +20,20 @@ class JumpChunk {
 				case 2:
 					this.ground.push(game.add.sprite(this.deltaX + i * 128, 128 * 4, 'platformer', 'grassRight.png'));
 					break;
+				case 3:
+				case 4:
+					if (this.mode == 1) {
+						let sprite = game.add.sprite(this.deltaX + i * 128, 128 * 4, 'platformer', 'snowCenter_rounded.png');
+						sprite.tint = Player.Colors.blue;
+						this.ground.push(sprite);
+						break;
+					} else if (this.mode == 2) {
+						let sprite = game.add.sprite(this.deltaX + i * 128, 128 * 4, 'platformer', 'snowCenter_rounded.png');
+						sprite.tint = Player.Colors.yellow;
+						this.ground.push(sprite);
+						break;
+					}
+					break;
 				case 5:
 					this.ground.push(game.add.sprite(this.deltaX + i * 128, 128 * 4, 'platformer', 'grassLeft.png'));
 					break;
@@ -30,7 +45,6 @@ class JumpChunk {
 		}
 		for (let i = 0; i < this.ground.length; ++i) {
 			game.physics.arcade.enable(this.ground[i]);
-			this.ground[i].body.immovable = true;
 			this.ground[i].body.moves = false;
 		}
 	}
