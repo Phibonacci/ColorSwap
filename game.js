@@ -1,7 +1,7 @@
 class Prototype extends Phaser.Game {
 
 	constructor () {
-		super(1024, 800, Phaser.CANVAS, 'gameArea', null);
+		super(1024, 640, Phaser.CANVAS, 'gameArea', null);
 		
 		this.state.add('Loading', Loading, false);
 		//this.state.add('Menu', Menu, false);
