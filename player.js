@@ -2,11 +2,11 @@ class Player {
 	constructor (playerId) {
 		if (playerId == 1)
 		{
-			this.sprite = game.add.sprite(64, 64, 'platformer_complete', 'alienBlue_walk1.png');
+			this.sprite = window.game.add.sprite(64, 64, 'platformer', 'alienBlue_walk1.png');
 		}
 		else if (playerId == 2)
 		{
-			this.sprite = game.add.sprite(64, 64, 'platformer_complete', 'alienYellow_walk1.png');
+			this.sprite = window.game.add.sprite(64, 64, 'platformer', 'alienYellow_walk1.png');
 		}
 		this.initializeBody();
 		this.initializeAnimations();
@@ -16,11 +16,16 @@ class Player {
 		this.sprite.animations.add('walk', [31, 32], 5, true);
 	}
 	
+	update(delta)
+	{
+		var movement = delta * 100;
+		this.sprite.x += movement;
+	}
+	
 	initializeBody () {
 		game.physics.arcade.enable(this.sprite);
 		this.sprite.body.bounce.y = 0.2;
 		this.sprite.body.gravity.y = 300;
-		this.sprite.body.collideWorldBounds = true;
 	}
 	
 	update (delta) {
