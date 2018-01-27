@@ -1,9 +1,13 @@
 class Stage extends Phaser.State {
 	create () {
-		this.player1 = window.game.add.sprite(64, 64, 'platformer_complete', 'alienBlue_walk1.png');
-		this.player2 = window.game.add.sprite(64, 64, 'platformer_complete', 'alienGreen_walk1.png');
+		this.player1 = new Player(1);
+		this.player2 = new Player(2);
+		//this.game.keyboard.
+		this.previousFrameTime = game.time.now;
 	}
 	update () {
-		this.player1.angle += 0.5;
+		let delta = (game.time.now - this.previousFrameTime) / 1000;
+		this.player1.update(delta);
+		this.previousFrameTime = game.time.now;
 	}
 }
