@@ -25,8 +25,6 @@ class Transmitter {
 	
 	overlapCheck(objectA, objectB) {
 		game.sound.play('woosh', 0.5);
-		console.log("objectA: " + objectA.TOTO + " objectB	: " + objectB.TOTO);
-		console.log("pos star: " + this.sprite.x + " player: " + this.playerTarget.sprite.x);
 		let color1 = this.playerSource.color;
 		let color2 = this.playerTarget.color;
 		this.playerSource.switchColor(color2);
