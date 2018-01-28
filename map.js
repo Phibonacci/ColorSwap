@@ -3,13 +3,17 @@
 class Map {
 	constructor() {
 		game.camera.bounds = null;
+		this.group = game.add.group();
 		this.chunks = [];
 		this.currentChunk = 0;
-		this.buildNextChunk();
+		this.speed = 200.0;
+		this.acceleration = 5.0;
 	}
 
 	update(deltaTime) {
-		game.camera.x += deltaTime * 250.0;
+		game.camera.x += deltaTime * this.speed;
+		this.speed += deltaTime * this.acceleration;
+
 		let hasDestroyedChunk = false;
 		for (let i = 0; i < this.chunks.length; ++i) {
 			this.chunks[i].update();
@@ -20,14 +24,14 @@ class Map {
 		if (hasDestroyedChunk) {
 			this.chunks = this.chunks.filter(x => !x.isDestroyed);
 		}
-		if (this.chunks.length <= 1) {
+		if (this.chunks.length <= 2) {
 			this.buildNextChunk();
 		}
 	}
 
-	collideWith(sprite) {
+	collideWith(player) {
 		for (let i = 0; i < this.chunks.length; ++i) {
-			this.chunks[i].collideWith(sprite);
+			this.chunks[i].collideWith(player);
 		}
 	}
 
@@ -39,10 +43,14 @@ class Map {
 	}
 
 	createRandomChunk() {
-		if (Math.random() < 0.5) {
-			return new JumpChunk(this.currentChunk);
-		} else {
-			return new EmptyChunk(this.currentChunk)
+		let type = Math.floor(Math.random() * 3);
+		switch (type) {
+			case 0:
+				return new JumpChunk(this, this.currentChunk);
+			case 1:
+				return new EmptyChunk(this, this.currentChunk);
+			case 2:
+				return new WallChunk(this, this.currentChunk);
 		}
 	}
 }
