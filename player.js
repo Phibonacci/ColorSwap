@@ -4,11 +4,13 @@ class Player {
 		this.playerId = playerId;
 		if (playerId == 1)
 		{
-			this.sprite = window.game.add.sprite(64, 64, 'platformer', 'alienBlue_walk1.png');
+			this.sprite = game.add.sprite( 2 * game.world.width / 3, game.world.height / 2, 'platformer', 'alienBlue_walk1.png');
+			this.sprite.x += this.sprite.width;
 		}
 		else if (playerId == 2)
 		{
-			this.sprite = window.game.add.sprite(64, 64, 'platformer', 'alienYellow_walk1.png');
+			this.sprite = game.add.sprite(2 * game.world.width / 3, game.world.height / 2, 'platformer', 'alienYellow_walk1.png');
+			this.sprite.x -= this.sprite.width;
 		}
 		this.initializeBody();
 		this.initializeAnimations();

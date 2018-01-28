@@ -18,6 +18,7 @@ class Stage extends Phaser.State {
 		this.music.loop = true;
 		this.music.volume = 0.5;
 		this.music.play();
+		this.transmitters = [];
 	}
 	update () {
 		let delta = (game.time.now - this.previousFrameTime) / 1000;
@@ -27,12 +28,29 @@ class Stage extends Phaser.State {
 		this.map.collideWith(this.player2);
 		this.player1.update(delta);
 		this.player2.update(delta);
-		if (this.player1.switchColorRequest || this.player2.switchColorRequest) {
-			let color1 = this.player1.color;
-			let color2 = this.player2.color;
-			this.player1.switchColor(color2);
-			this.player2.switchColor(color1);
+		
+		if (this.player1.switchColorRequest) {
+			this.transmitters.push(new Transmitter(this.player1, this.player2));
+			this.player1.switchColorRequest = false;
+		} else if (this.player2.switchColorRequest) {
+			this.transmitters.push(new Transmitter(this.player2, this.player1));
+			this.player2.switchColorRequest = false;
 		}
+		
+		let hasDestroyedTransmitter = false;
+		for (let t of this.transmitters) {
+			t.update(delta);
+			if (t.destroyMe) {
+				hasDestroyedTransmitter = true;
+			}
+		}
+
+		if (hasDestroyedTransmitter) {
+			console.log(this.transmitters.length);
+			this.transmitters = this.transmitters.filter(x => !x.destroyMe);
+			console.log(this.transmitters.length);
+		}
+		
 		this.previousFrameTime = game.time.now;
 
 		if (this.player1.isOutOfBounds() || this.player2.isOutOfBounds()) {
