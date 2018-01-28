@@ -48,7 +48,7 @@ class Map {
 	}
 
 	createRandomChunk() {
-		let type = Math.floor(Math.random() * 3);
+		let type = Math.floor(Math.random() * 4);
 		if (this.currentChunk == 0) {
 			type = 0;
 		}
