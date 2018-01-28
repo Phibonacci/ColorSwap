@@ -20,6 +20,13 @@ class Stage extends Phaser.State {
 		this.music.play();
 		this.transmitters = [];
 	}
+	
+	render() {
+		for (let t of this.transmitters) {
+			t.render();
+		}
+	}
+	
 	update () {
 		let delta = (game.time.now - this.previousFrameTime) / 1000;
 		this.background.update(delta);
@@ -46,9 +53,7 @@ class Stage extends Phaser.State {
 		}
 
 		if (hasDestroyedTransmitter) {
-			console.log(this.transmitters.length);
 			this.transmitters = this.transmitters.filter(x => !x.destroyMe);
-			console.log(this.transmitters.length);
 		}
 		
 		this.previousFrameTime = game.time.now;
