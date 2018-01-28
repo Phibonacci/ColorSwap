@@ -27,6 +27,12 @@ class Stage extends Phaser.State {
 		this.map.collideWith(this.player2);
 		this.player1.update(delta);
 		this.player2.update(delta);
+		if (this.player1.switchColorRequest || this.player2.switchColorRequest) {
+			let color1 = this.player1.color;
+			let color2 = this.player2.color;
+			this.player1.switchColor(color2);
+			this.player2.switchColor(color1);
+		}
 		this.previousFrameTime = game.time.now;
 
 		if (this.player1.isOutOfBounds() || this.player2.isOutOfBounds()) {
