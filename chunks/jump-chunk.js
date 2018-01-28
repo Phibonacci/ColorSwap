@@ -16,7 +16,7 @@ class JumpChunk extends Chunk {
 					x == jumpStartX ? 'snowLeft.png' :
 					x == jumpEndX ? 'snowRight.png' :
 					'snowMid.png';
-				let color = this.mode === 0 ? 1 : 4;
+				let color = this.mode === 0 ? this.map.color1 : this.map.color2;
 				super.addBlock(texture, color, x, 4);
 			} else {
 				let texture =

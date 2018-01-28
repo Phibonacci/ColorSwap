@@ -4,6 +4,7 @@ class WallChunk extends Chunk {
 	constructor(map, chunkId) {
 		super(map, chunkId);
 		this.mode = Math.floor(Math.random() * 2);
+		this.width = Math.floor(Math.random() * 2) + 1;
 	}
 
 	build() {
@@ -12,7 +13,7 @@ class WallChunk extends Chunk {
 		}
 		for (let x = 3; x < 5; ++x) {
 			for (let y = 0; y < 4; ++y) {
-				super.addBlock('brickGrey.png', this.mode === 0 ? 1 : 4, x, y);
+				super.addBlock('brickGrey.png', this.mode === 0 ? this.map.color1 : this.map.color2, x, y);
 			}
 		}
 	}

@@ -10,6 +10,11 @@ class Map {
 		this.acceleration = 5.0;
 	}
 
+	setColors(color1, color2) {
+		this.color1 = color1;
+		this.color2 = color2;
+	}
+
 	update(deltaTime) {
 		game.camera.x += deltaTime * this.speed;
 		this.speed += deltaTime * this.acceleration;
