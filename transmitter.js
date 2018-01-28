@@ -11,9 +11,9 @@ class Transmitter {
 		this.sprite.body.setCircle(30, this.sprite.width / 3.75, this.sprite.height / 3.5);
 		this.direction = playerTarget.sprite.x - playerSource.sprite.x;
 		if (this.direction > 0) {
-			this.sprite.body.velocity.x = 400;
+			this.sprite.body.velocity.x = 500;
 		} else {
-			this.sprite.body.velocity.x = -400;
+			this.sprite.body.velocity.x = -500;
 		}
 		this.sprite.anchor.setTo(0.3, 0.4);
 		this.destroyMe = false;
