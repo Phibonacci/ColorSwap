@@ -17,8 +17,8 @@ class Player {
 		this.jumpForce = 1300;
 		this.initializeControls();
 		this.switchColorRequest = false;
-		this.switchCooldown = 3;
-		this.switchCurrentCooldown = 0;
+		this.switchCooldown = 2;
+		this.previousSwitchTime = 0;
 	}
 		
 	initializeControls() {
@@ -70,16 +70,6 @@ class Player {
 	update(delta) {
 		this.sprite.body.velocity.x = 0;
 		
-		
-		if (this.switchCurrentCooldown > 0)
-		{
-			console.log(game.time.now / 1000);
-			this.switchCurrentCooldown -= game.time.now / 100000;
-			if (this.switchCurrentCooldown < 0) {
-				this.switchCurrentCooldown = 0;
-			}
-		}
-		
 		if (this.rightKey()) {
 			this.moveRight(delta);
 		}
@@ -90,10 +80,9 @@ class Player {
 			this.jump(delta);
 		}
 		if (this.switchKey()) {
-			console.log("cd: " + this.switchCurrentCooldown);
-			if (this.switchCurrentCooldown <= 0) {
+			if (game.time.now / 1000 - this.previousSwitchTime > this.switchCooldown) {
 				this.switchColorRequest = true;
-				this.switchCurrentCooldown = this.switchCooldown;
+				this.previousSwitchTime = game.time.now / 1000;
 			}
 		}
 		
