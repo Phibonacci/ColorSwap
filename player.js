@@ -16,28 +16,33 @@ class Player {
 		this.movement = 400;
 		this.jumpForce = 1300;
 		this.initializeControls();
+		this.switchColorRequest = false;
+		this.switchCooldown = 3;
+		this.switchCurrentCooldown = 0;
 	}
-	
+		
 	initializeControls() {
 		if (this.playerId == 1) {
 			this.pad = game.input.gamepad.pad1;
 			this.controls = {
 				right: [ Phaser.KeyCode.D ],
 				left : [ Phaser.KeyCode.A, Phaser.KeyCode.Q ],
-				jump : [ Phaser.KeyCode.W, Phaser.KeyCode.Z, Phaser.KeyCode.SPACEBAR ]
+				jump : [ Phaser.KeyCode.W, Phaser.KeyCode.Z, Phaser.KeyCode.SPACEBAR ],
+				switchKey : [ Phaser.KeyCode.E]
 			};
 		} else {
 			this.pad = game.input.gamepad.pad2;
 			this.controls = {
 				right: [ Phaser.KeyCode.RIGHT ],
 				left : [ Phaser.KeyCode.LEFT ],
-				jump : [ Phaser.KeyCode.UP ]
+				jump : [ Phaser.KeyCode.UP ],
+				switchKey : [ Phaser.KeyCode.NUMPAD_0]
 			};
 		}
 	}
 	
 	initializeAnimations() {
-		var offset = Player.OffsetPlayers[this.color];
+		let offset = Player.OffsetPlayers[this.color];
 		this.sprite.animations.add('walk', [9 + offset, 10 + offset], 5, true);
 		this.sprite.animations.add('stand', [6 + offset], 5, true);
 		this.sprite.animations.add('jump', [5 + offset], 5, true);
@@ -56,8 +61,25 @@ class Player {
 		}
 	}
 	
+	switchColor(color) {
+		this.color = color;
+		this.switchColorRequest = false;
+		this.initializeAnimations();
+	}
+	
 	update(delta) {
 		this.sprite.body.velocity.x = 0;
+		
+		
+		if (this.switchCurrentCooldown > 0)
+		{
+			console.log(game.time.now / 1000);
+			this.switchCurrentCooldown -= game.time.now / 100000;
+			if (this.switchCurrentCooldown < 0) {
+				this.switchCurrentCooldown = 0;
+			}
+		}
+		
 		if (this.rightKey()) {
 			this.moveRight(delta);
 		}
@@ -67,6 +89,15 @@ class Player {
 		if (this.jumpKey()) {
 			this.jump(delta);
 		}
+		if (this.switchKey()) {
+			console.log("cd: " + this.switchCurrentCooldown);
+			if (this.switchCurrentCooldown <= 0) {
+				this.switchColorRequest = true;
+				this.switchCurrentCooldown = this.switchCooldown;
+			}
+		}
+		
+		
 		if (this.sprite.body.velocity.x === 0 && this.sprite.body.velocity.y === 0
 			&& this.sprite.animations.currentAnime != 'stand') {
 			this.sprite.animations.play('stand');
@@ -85,7 +116,6 @@ class Player {
 	isKeyDown(keys) {
 		for (let k of keys) {
 			if (game.input.keyboard.isDown(k)) {
-				console.log(k);
 				return true;
 			}
 		}
@@ -106,6 +136,12 @@ class Player {
 		return this.isKeyDown(this.controls.jump)
 			|| this.pad.isDown(Phaser.Gamepad.XBOX360_A)
 			|| this.pad.isDown(Phaser.Gamepad.XBOX360_B);
+	}
+
+	switchKey() {
+		return this.isKeyDown(this.controls.switchKey)
+			|| this.pad.isDown(Phaser.Gamepad.XBOX360_X)
+			|| this.pad.isDown(Phaser.Gamepad.XBOX360_Y);
 	}
 	
 	moveRight(delta) {
