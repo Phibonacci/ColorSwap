@@ -6,8 +6,8 @@ class Map {
 		this.group = game.add.group();
 		this.chunks = [];
 		this.currentChunk = 0;
-		this.speed = 200.0;
-		this.acceleration = 5.0;
+		this.speed = 150.0;
+		this.acceleration = 6.0;
 	}
 
 	setColors(color1, color2) {
@@ -59,6 +59,8 @@ class Map {
 				return new JumpChunk(this, this.currentChunk);
 			case 2:
 				return new WallChunk(this, this.currentChunk);
+			case 3:
+				return new BridgeChunk(this, this.currentChunk);
 		}
 	}
 }
