@@ -9,6 +9,11 @@ class Stage extends Phaser.State {
 		this.player1 = new Player(1, 1);
 		this.player2 = new Player(2, 4);
 		this.previousFrameTime = game.time.now;
+
+		this.music = game.add.audio('cheerful_annoyance');
+		this.music.loop = true;
+		this.music.volume = 0.5;
+		this.music.play();
 	}
 	update () {
 		let delta = (game.time.now - this.previousFrameTime) / 1000;
