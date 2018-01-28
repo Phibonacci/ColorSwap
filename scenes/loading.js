@@ -7,6 +7,11 @@ class Loading extends Phaser.State {
 		game.load.audio('jump2', 'assets/jump2.ogg');
 		game.load.audio('jump3', 'assets/jump3.ogg');
 		game.load.audio('jump4', 'assets/jump4.ogg');
+		game.load.audio('laser1', 'assets/laser1.ogg');
+		game.load.audio('laser2', 'assets/laser2.ogg');
+		game.load.audio('laser3', 'assets/laser3.ogg');
+		game.load.audio('laser4', 'assets/laser4.ogg');
+		game.load.audio('woosh', 'assets/woosh4.ogg');
 	}
 	create () {
 		this.state.start('Stage');
