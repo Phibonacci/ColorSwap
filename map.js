@@ -10,6 +10,11 @@ class Map {
 		this.acceleration = 5.0;
 	}
 
+	setColors(color1, color2) {
+		this.color1 = color1;
+		this.color2 = color2;
+	}
+
 	update(deltaTime) {
 		game.camera.x += deltaTime * this.speed;
 		this.speed += deltaTime * this.acceleration;
@@ -44,11 +49,14 @@ class Map {
 
 	createRandomChunk() {
 		let type = Math.floor(Math.random() * 3);
+		if (this.currentChunk == 0) {
+			type = 0;
+		}
 		switch (type) {
 			case 0:
-				return new JumpChunk(this, this.currentChunk);
-			case 1:
 				return new EmptyChunk(this, this.currentChunk);
+			case 1:
+				return new JumpChunk(this, this.currentChunk);
 			case 2:
 				return new WallChunk(this, this.currentChunk);
 		}

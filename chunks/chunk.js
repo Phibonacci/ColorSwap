@@ -22,13 +22,13 @@ class Chunk {
 		sprite.color = color;
 		switch (color) {
 			case 1:
-				sprite.tint = Player.SpriteColors.green;
+				sprite.tint = Player.SpriteColors.blue;
 				break;
 			case 2:
-				sprite.tint = Player.SpriteColors.red;
+				sprite.tint = Player.SpriteColors.green;
 				break;
 			case 3:
-				sprite.tint = Player.SpriteColors.blue;
+				sprite.tint = Player.SpriteColors.pink;
 				break;
 			case 4:
 				sprite.tint = Player.SpriteColors.yellow;

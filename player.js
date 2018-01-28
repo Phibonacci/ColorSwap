@@ -166,6 +166,7 @@ class Player {
 	
 	jump(delta) {
 		if (this.sprite.body.touching.down) {
+			game.sound.play('jump' + this.color, 0.2);
 			this.sprite.body.velocity.y = -this.jumpForce;
 			this.canJump = false;
 		}
