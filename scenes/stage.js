@@ -1,7 +1,7 @@
 class Stage extends Phaser.State {
 	create () {
-		const colorA = 2;
-		const colorB = 4;
+		const colorA = 1;
+		const colorB = 3;
 
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 		game.world.enableBody = true;
@@ -28,5 +28,10 @@ class Stage extends Phaser.State {
 		this.player1.update(delta);
 		this.player2.update(delta);
 		this.previousFrameTime = game.time.now;
+
+		if (this.player1.isOutOfBounds() || this.player2.isOutOfBounds()) {
+			this.music.stop();
+			this.state.start('Stage');
+		}
 	}
 }
