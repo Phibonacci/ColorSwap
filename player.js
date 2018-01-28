@@ -161,6 +161,11 @@ class Player {
 			this.canJump = false;
 		}
 	}
+
+	isOutOfBounds() {
+		return this.sprite.y > game.world.height + this.sprite.height ||
+			this.sprite.x - game.camera.x < -Math.abs(this.sprite.width) * 2;
+	}
 }
 
 Player.Colors = {
