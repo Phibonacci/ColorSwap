@@ -35,8 +35,7 @@ class Chunk {
 				break;
 		}
 		game.physics.arcade.enable(sprite);
-		sprite.body.moves = false;
-		sprite.body.friction = 0;
+		sprite.body.immovable = true;
 		this.blocks.push(sprite);
 	}
 

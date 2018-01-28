@@ -22,7 +22,6 @@ class Player {
 	
 	initializeBody() {
 		game.physics.arcade.enable(this.sprite);
-		this.sprite.body.bounce.y = 0.2;
 		this.sprite.body.gravity.y = 600;
 		this.sprite.body.onCollide =  new Phaser.Signal();
 		this.sprite.body.onCollide.add(this.checkGround, this);
@@ -43,7 +42,6 @@ class Player {
 			this.moveLeft(delta);
 		}
 		if (this.jumpKey()) {
-			console.log("jump key");
 			this.jump(delta);
 		}
 		if (this.sprite.body.velocity.x === 0 && this.sprite.body.velocity.y === 0) {
@@ -69,10 +67,6 @@ class Player {
 		return game.input.keyboard.isDown(Phaser.KeyCode.SPACEBAR) || game.input.keyboard.isDown(Phaser.KeyCode.UP);
 	}
 	
-	movement(delta) {
-		return delta * 30000;
-	}
-	
 	moveRight(delta) {
 		if (this.sprite.animations.currentAnime != 'walk') {
 			this.sprite.animations.play('walk');
@@ -80,7 +74,7 @@ class Player {
 		if (this.sprite.scale.x < 0) {
 			this.reverseSprite(1);
 		}
-		this.sprite.body.velocity.x = this.movement(delta);
+		this.sprite.body.velocity.x = 300;
 	}
 
 	moveLeft(delta) {
@@ -90,12 +84,12 @@ class Player {
 		if (this.sprite.scale.x > 0) {
 			this.reverseSprite(-1);
 		}
-		this.sprite.body.velocity.x = -this.movement(delta);
+		this.sprite.body.velocity.x = -300;
 	}
 	
 	jump(delta) {
-		if (this.canJump) {
-			this.sprite.body.velocity.y = -this.movement(delta) / 2;
+		if (this.sprite.body.touching.down) {
+			this.sprite.body.velocity.y = -300;
 			this.canJump = false;
 		}
 	}
