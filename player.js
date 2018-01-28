@@ -19,7 +19,7 @@ class Player {
 		this.jumpForce = 1300;
 		this.initializeControls();
 		this.switchColorRequest = false;
-		this.switchCooldown = 2;
+		this.switchCooldown = 0.5;
 		this.previousSwitchTime = 0;
 	}
 		
