@@ -44,11 +44,14 @@ class Map {
 
 	createRandomChunk() {
 		let type = Math.floor(Math.random() * 3);
+		if (this.currentChunk == 0) {
+			type = 0;
+		}
 		switch (type) {
 			case 0:
-				return new JumpChunk(this, this.currentChunk);
-			case 1:
 				return new EmptyChunk(this, this.currentChunk);
+			case 1:
+				return new JumpChunk(this, this.currentChunk);
 			case 2:
 				return new WallChunk(this, this.currentChunk);
 		}
