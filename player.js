@@ -80,7 +80,6 @@ class Player {
 			this.jump(delta);
 		}
 		if (this.switchKey()) {
-			console.log("cd: " + game.time.now / 1000 + " - " + this.previousSwitchTime + " > " + this.switchCooldown);
 			if (game.time.now / 1000 - this.previousSwitchTime > this.switchCooldown) {
 				this.switchColorRequest = true;
 				this.previousSwitchTime = game.time.now / 1000;
