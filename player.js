@@ -1,5 +1,7 @@
-class Player {	
-	constructor (playerId) {
+class Player {
+	constructor(playerId, color) {
+		this.color = color;
+		this.playerId = playerId;
 		if (playerId == 1)
 		{
 			this.sprite = window.game.add.sprite(64, 64, 'platformer', 'alienBlue_walk1.png');
@@ -10,63 +12,68 @@ class Player {
 		}
 		this.initializeBody();
 		this.initializeAnimations();
+		this.sprite.anchor.setTo(.5,.5);
 	}
 	
-	initializeAnimations () {
+	initializeAnimations() {
 		this.sprite.animations.add('walk', [31, 32], 5, true);
+		this.sprite.animations.add('stand', [28], 5, true);
 	}
 	
-	update(delta)
-	{
-		var movement = delta * 100;
-		this.sprite.x += movement;
-	}
-	
-	initializeBody () {
+	initializeBody() {
 		game.physics.arcade.enable(this.sprite);
 		this.sprite.body.bounce.y = 0.2;
-		this.sprite.body.gravity.y = 300;
+		this.sprite.body.gravity.y = 600;
+		this.sprite.body.onCollide =  new Phaser.Signal();
+		this.sprite.body.onCollide.add(this.checkGround, this);
 	}
 	
-	update (delta) {
+	checkGround(sprite1, sprite2) {
+		if (sprite1.y < sprite2.y) {
+			this.canJump = 1;
+		}
+	}
+	
+	update(delta) {
+		this.sprite.body.velocity.x = 0;
 		if (this.rightKey()) {
 			this.moveRight(delta);
 		}
-		else if (this.leftKey()) {
+		if (this.leftKey()) {
 			this.moveLeft(delta);
 		}
-		else {
-			this.sprite.body.velocity.x = 0;
-		}
 		if (this.jumpKey()) {
+			console.log("jump key");
 			this.jump(delta);
+		}
+		if (this.sprite.body.velocity.x === 0 && this.sprite.body.velocity.y === 0) {
+			this.sprite.animations.play('stand');
 		}
 	}
 
 	reverseSprite(direction) {
-		this.sprite.anchor.setTo(.5,.5);
 		if (direction * this.sprite.scale.x < 0) {
 			this.sprite.scale.x *= -1;
 		}
 	}
 	
-	rightKey () {
+	rightKey() {
 		return game.input.keyboard.isDown(Phaser.KeyCode.D) || game.input.keyboard.isDown(Phaser.KeyCode.RIGHT);
 	}
 
-	leftKey () {
+	leftKey() {
 		return game.input.keyboard.isDown(Phaser.KeyCode.Q) || game.input.keyboard.isDown(Phaser.KeyCode.LEFT);
 	}
 	
-	jumpKey () {
+	jumpKey() {
 		return game.input.keyboard.isDown(Phaser.KeyCode.SPACEBAR) || game.input.keyboard.isDown(Phaser.KeyCode.UP);
 	}
 	
-	movement (delta) {
+	movement(delta) {
 		return delta * 30000;
 	}
 	
-	moveRight (delta) {
+	moveRight(delta) {
 		if (this.sprite.animations.currentAnime != 'walk') {
 			this.sprite.animations.play('walk');
 		}
@@ -76,7 +83,7 @@ class Player {
 		this.sprite.body.velocity.x = this.movement(delta);
 	}
 
-	moveLeft (delta) {
+	moveLeft(delta) {
 		if (this.sprite.animations.currentAnime != 'walk') {
 			this.sprite.animations.play('walk');
 		}
@@ -86,22 +93,31 @@ class Player {
 		this.sprite.body.velocity.x = -this.movement(delta);
 	}
 	
-	jump (delta) {
-		if (this.sprite.body.touching.down && hitPlatform) {
-			this.sprite.body.velocity.y = this.movement(delta);
+	jump(delta) {
+		if (this.canJump) {
+			this.sprite.body.velocity.y = -this.movement(delta) / 2;
+			this.canJump = false;
 		}
-	}
-
-	
-	animate () {
-		// frames = new FrameData();
-		// frames.Add(new Frame(0,  "alienGreen_walk1.png");
 	}
 }
 
 Player.Colors = {
-	green: 0x6fc4a9,
+	blue: 1,
+	green: 2,
+	pink: 3,
+	yellow: 4
+}
+
+Player.SpriteColors = {
 	blue: 0x8db5e7,
-	red: 0xf19cb7,
+	green: 0x6fc4a9,
+	pink: 0xf19cb7,
 	yellow: 0xffcc00
+}
+
+Player.OffsetPlayers = {
+	blue   : 11,
+	green  : 22,
+	pink   : 33,
+	yellow : 44
 }
