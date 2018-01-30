@@ -24,6 +24,9 @@ class Transmitter {
 	}
 	
 	overlapCheck(objectA, objectB) {
+		if (!objectA.overlap(objectB)) {
+			return;
+		}
 		game.sound.play('woosh', 0.5);
 		let color1 = this.playerSource.color;
 		let color2 = this.playerTarget.color;
