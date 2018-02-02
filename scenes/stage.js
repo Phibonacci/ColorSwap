@@ -1,3 +1,5 @@
+'use strict';
+
 class Stage extends Phaser.State {
 	create () {
 		const colorA = 1;

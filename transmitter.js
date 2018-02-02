@@ -1,3 +1,5 @@
+'use strict';
+
 class Transmitter {
 	constructor(playerSource, playerTarget) {
 		game.sound.play('laser' + playerSource.color, 0.4);

@@ -1,3 +1,5 @@
+'use strict';
+
 class Prototype extends Phaser.Game {
 
 	constructor () {
