@@ -21,7 +21,7 @@ class Player {
 		this.initializeBody();
 		this.initializeAnimations();
 		this.sprite.anchor.setTo(.5,.5);
-		this.movement = 700;
+		this.movement = 600;
 		this.jumpForce = 1300;
 		this.switchColorRequest = false;
 		this.switchCooldown = 0.5;
