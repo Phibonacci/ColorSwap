@@ -20,7 +20,7 @@ class Menu extends Phaser.State {
 	update () {
 		this.skinselector.update();
 		if (this.skinselector.selectionOver) {
-			this.state.start('Stage', true, false, this.players);
+			this.state.start('Stage', true, false, this.players, 0);
 		}
 	}
 }
