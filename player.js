@@ -43,7 +43,7 @@ class Player {
 				right: [ Phaser.KeyCode.RIGHT ],
 				left : [ Phaser.KeyCode.LEFT ],
 				jump : [ Phaser.KeyCode.UP ],
-				switchKey : [ Phaser.KeyCode.NUMPAD_0]
+				switchKey : [ Phaser.KeyCode.NUMPAD_0, Phaser.KeyCode.CONTROL ]
 			};
 		}
 	}
