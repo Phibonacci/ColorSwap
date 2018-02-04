@@ -5,7 +5,7 @@ class Skin {
 		this.colorId = colorId;
 		this.id = id;
 		let offset = Player.OffsetPlayers[colorId];
-		this.sprite = game.add.sprite(x, game.world.height * 7 / 20, 'platformer', Player.OffsetPlayers[colorId] + 3);
+		this.sprite = game.add.sprite(x, game.world.height * 7 / 20, 'platformer', Player.OffsetPlayers[colorId] + 6);
 		this.sprite.anchor.set(0.5, 0);
 		this.taken = false;
 		this.selected = false;
