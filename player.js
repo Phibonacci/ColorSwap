@@ -4,12 +4,16 @@ class Player {
 	constructor(playerId, color) {
 		this.color = color;
 		this.playerId = playerId;
-		if (playerId == 1)
+		this.initializeControls();
+	}
+		
+	synchronize() {
+		if (this.playerId == 1)
 		{
 			this.sprite = game.add.sprite( 2 * game.world.width / 3, game.world.height / 2, 'platformer', 'alienBlue_walk1.png');
 			this.sprite.x += this.sprite.width;
 		}
-		else if (playerId == 2)
+		else if (this.playerId == 2)
 		{
 			this.sprite = game.add.sprite(2 * game.world.width / 3, game.world.height / 2, 'platformer', 'alienYellow_walk1.png');
 			this.sprite.x -= this.sprite.width;
@@ -19,12 +23,11 @@ class Player {
 		this.sprite.anchor.setTo(.5,.5);
 		this.movement = 700;
 		this.jumpForce = 1300;
-		this.initializeControls();
 		this.switchColorRequest = false;
 		this.switchCooldown = 0.5;
 		this.previousSwitchTime = 0;
 	}
-		
+
 	initializeControls() {
 		if (this.playerId == 1) {
 			this.pad = game.input.gamepad.pad1;
@@ -117,12 +120,14 @@ class Player {
 	
 	rightKey() {
 		return this.isKeyDown(this.controls.right)
-			|| this.pad.isDown(Phaser.Gamepad.XBOX360_DPAD_RIGHT) || this.pad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_X) > 0.1;
+			|| this.pad.isDown(Phaser.Gamepad.XBOX360_DPAD_RIGHT)
+			|| this.pad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_X) > 0.1;
 	}
 
 	leftKey() {
 		return this.isKeyDown(this.controls.left)
-			|| this.pad.isDown(Phaser.Gamepad.XBOX360_DPAD_LEFT) || this.pad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_X) < -0.1;
+			|| this.pad.isDown(Phaser.Gamepad.XBOX360_DPAD_LEFT)
+			|| this.pad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_X) < -0.1;
 	}
 	
 	jumpKey() {

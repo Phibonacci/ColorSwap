@@ -2,6 +2,7 @@
 
 class Loading extends Phaser.State {
 	preload () {
+		game.load.bitmapFont('Kenney Bold', 'assets/kenney_bold.png', 'assets/kenney_bold.fnt')
 		game.load.atlasXML('platformer', 'assets/platformer_complete.png', 'assets/platformer_complete.xml');
 		game.load.image('blue_land', 'assets/blue_land.png');
 		game.load.audio('cheerful_annoyance', 'assets/cheerful_annoyance.ogg');
@@ -15,9 +16,11 @@ class Loading extends Phaser.State {
 		game.load.audio('laser4', 'assets/laser4.ogg');
 		game.load.audio('woosh', 'assets/woosh4.ogg');
 	}
+
 	create () {
-		this.state.start('Stage');
+		this.state.start('Menu');
 	}
+
 	update () {
 	}
 }

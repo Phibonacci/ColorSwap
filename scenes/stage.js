@@ -1,19 +1,20 @@
 'use strict';
 
 class Stage extends Phaser.State {
-	create () {
-		const colorA = 1;
-		const colorB = 3;
+	init(players) {
+		this.players = players;
+		this.player1 = players[0];
+		this.player2 = players[1];
+	}
 
+	create () {
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 		game.world.enableBody = true;
 		game.input.gamepad.start();
 		this.background = new Background();
 		this.map = new Map();
-		this.map.setColors(colorA, colorB);
+		this.map.setColors(this.player1.color, this.player2.color);
 		this.map.buildNextChunk();
-		this.player1 = new Player(1, colorA);
-		this.player2 = new Player(2, colorB);
 		this.previousFrameTime = game.time.now;
 
 		this.music = game.add.audio('cheerful_annoyance');
@@ -21,6 +22,8 @@ class Stage extends Phaser.State {
 		this.music.volume = 0.5;
 		this.music.play();
 		this.transmitters = [];
+		this.player1.synchronize();
+		this.player2.synchronize();
 	}
 	
 	render() {
@@ -62,7 +65,7 @@ class Stage extends Phaser.State {
 
 		if (this.player1.isOutOfBounds() || this.player2.isOutOfBounds()) {
 			this.music.stop();
-			this.state.start('Stage');
+			this.state.start('Stage', true, false, this.players);
 		}
 	}
 }
